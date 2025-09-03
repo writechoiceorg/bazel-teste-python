@@ -1,15 +1,17 @@
 # hello_world/BUILD
 
-load("@rules_python//python:defs.bzl", "py_library", "py_test")
+load("@rules_python//python:defs.bzl", "py_binary")
 
-py_library(
-    name = "hello_lib",
-    srcs = ["hello.py", "__init__.py"],
-    imports = ["."],
+# Este target executará a função say_hello
+py_binary(
+    name = "hello",
+    srcs = ["hello.py"],
+    main = "hello.py",
 )
 
-py_test(
-    name = "hello_test",
-    srcs = ["hello_test.py"],
-    deps = [":hello_lib"],
+# Este target executará a função say_goodbye
+py_binary(
+    name = "goodbye",
+    srcs = ["hello.py"],
+    main = "hello.py",
 )
