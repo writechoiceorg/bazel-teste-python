@@ -6,16 +6,16 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
 
 # Este target executará a função say_hello
 py_binary(
-    name = "hello",
-    srcs = ["hello.py"],
-    main = "hello.py",
+    name = "run_hello",
+    srcs = ["run_hello.py"],
+    deps = [":hello_world"],
 )
 
 # Este target executará a função say_goodbye
 py_binary(
-    name = "goodbye",
-    srcs = ["hello.py"],
-    main = "hello.py",
+    name = "run_goodbye",
+    srcs = ["run_goodbye.py"],
+    deps = [":hello_world"],
 )
 
 bzl_library(

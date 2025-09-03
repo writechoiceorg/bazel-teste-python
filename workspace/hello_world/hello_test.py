@@ -1,5 +1,5 @@
 import unittest
-from hello import say_hello, say_goodbye
+from hello_world.hello import say_hello, say_goodbye
 
 class TestSayHello(unittest.TestCase):
     def test_return_value_is_correct(self):
