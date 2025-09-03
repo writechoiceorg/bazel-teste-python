@@ -18,6 +18,16 @@ py_binary(
     deps = [":hello_world"],
 )
 
+py_binary(
+    name = "parse_functions",
+    srcs = ["parse_functions.py"],
+)
+
+py_binary(
+    name = "aggregate_docs",
+    srcs = ["aggregate_docs.py"],
+)
+
 bzl_library(
     name = "package_aspect",
     srcs = ["package_aspect.bzl"],
@@ -38,5 +48,13 @@ py_library(
 py_test(
     name = "hello_test",
     srcs = ["hello_test.py"],
+    deps = [":hello_world"],
+)
+
+load("//hello_world:aspects.bzl", "doc_aggregator_rule")
+
+# Regra para agregar a documentação gerada pelo aspecto
+doc_aggregator_rule(
+    name = "docs",
     deps = [":hello_world"],
 )
