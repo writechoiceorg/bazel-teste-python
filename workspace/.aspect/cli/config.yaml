@@ -1,0 +1,8 @@
+configure:
+  languages:
+    javascript: false
+    go: false
+    kotlin: false
+    protobuf: false
+    bzl: true
+    python: true

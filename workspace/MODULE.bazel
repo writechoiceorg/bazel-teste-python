@@ -4,6 +4,7 @@ module(
 )
 
 bazel_dep(name = "rules_python", version = "0.40.0")
+bazel_dep(name = "bazel_skylib", version = "1.6.1") # <-- Adicione esta linha
 
 python = use_extension("@rules_python//python:extensions.bzl", "python")
 python.toolchain(python_version = "3.9")

@@ -1,0 +1,11 @@
+---
+tasks:
+    - format:
+    - buildifier:
+    - gazelle:
+    - configure:
+    - test:
+          coverage: true
+          upload_test_logs: executed
+    - delivery:
+          auto_deliver: true
