@@ -3,16 +3,22 @@ FuncInfo = provider(fields = {"funcs": "Lista de arquivos JSON com nomes de fun√
 
 def _doc_generator_aspect_impl(target, ctx):
     json_files = []
+    # --- MENSAGEM ADICIONADA ---
+    print("--- Executando doc_generator_aspect no target: %s ---" % target.label)
     if hasattr(ctx.rule.attr, "srcs"):
         for t in ctx.rule.attr.srcs:
             for f in t.files.to_list():
                 if f.path.endswith(".py"):
-                    json_file = ctx.actions.declare_file("%s.json" % f.path)
+                    # --- MENSAGEM ADICIONADA ---
+                    print("  Processando arquivo fonte: %s" % f.path)
+                    json_file = ctx.actions.declare_file("%s.json" % 
+ f.path)
                     ctx.actions.run(
                         outputs = [json_file],
                         inputs = [f],
                         executable = ctx.executable._parser,
-                        arguments = [f.path, json_file.path],
+  
+                       arguments = [f.path, json_file.path],
                     )
                     json_files.append(json_file)
     
@@ -22,7 +28,8 @@ doc_generator_aspect = aspect(
     implementation = _doc_generator_aspect_impl,
     attr_aspects = ["deps"],
     attrs = {
-        "_parser": attr.label(
+    
+     "_parser": attr.label(
             default = Label("//hello_world:parse_functions"),
             executable = True,
             cfg = "exec",
@@ -35,7 +42,8 @@ def _doc_aggregator_rule_impl(ctx):
     for dep in ctx.attr.deps:
         if FuncInfo in dep:
             all_funcs_files.extend(dep[FuncInfo].funcs)
-            
+    
+         
     output_file = ctx.actions.declare_file("docs.md")
     
     args = ctx.actions.args()
@@ -52,7 +60,8 @@ def _doc_aggregator_rule_impl(ctx):
     return [DefaultInfo(files = depset([output_file]))]
 
 doc_aggregator_rule = rule(
-    implementation = _doc_aggregator_rule_impl,
+   
+  implementation = _doc_aggregator_rule_impl,
     attrs = {
         "deps": attr.label_list(aspects = [doc_generator_aspect]),
         "_aggregator": attr.label(

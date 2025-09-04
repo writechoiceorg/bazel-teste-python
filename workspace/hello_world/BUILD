@@ -4,6 +4,12 @@ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
 load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
 
+genrule(
+    name = "print_build_message",
+    outs = ["build_message.txt"],
+    cmd = "echo '>>> Building ... <<<' > $@",
+)
+
 # Este target executará a função say_hello
 py_binary(
     name = "run_hello",
@@ -50,6 +56,8 @@ py_test(
     srcs = ["hello_test.py"],
     deps = [":hello_world"],
 )
+
+load("//hello_world:aspects.bzl", "doc_aggregator_rule")
 
 load("//hello_world:aspects.bzl", "doc_aggregator_rule")
 
