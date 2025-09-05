@@ -45,8 +45,6 @@ py_library(
     srcs = [
         "__init__.py",
         "hello.py",
-        "run_goodbye.py",
-        "run_hello.py",
     ],
     visibility = ["//:__subpackages__"],
 )
@@ -56,8 +54,6 @@ py_test(
     srcs = ["hello_test.py"],
     deps = [":hello_world"],
 )
-
-load("//hello_world:aspects.bzl", "doc_aggregator_rule")
 
 load("//hello_world:aspects.bzl", "doc_aggregator_rule")
 
