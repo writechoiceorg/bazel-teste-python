@@ -61,7 +61,7 @@ load("//hello_world:aspects.bzl", "doc_aggregator_rule")
 
 load("//hello_world:aspects.bzl", "doc_aggregator_rule")
 
-# Regra para agregar a documentação gerada pelo aspecto
+# Regra para agregar a documentação gerada
 doc_aggregator_rule(
     name = "docs",
     deps = [":hello_world"],
