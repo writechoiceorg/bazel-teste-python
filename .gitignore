@@ -44,11 +44,11 @@ terraform.rc
 # ==============================================================================
 
 # Bazel-generated files
-/bazel-*
-/bazel-out/
-/bazel-bin/
-/bazel-genfiles/
-/bazel-testlogs/
+bazel-*
+bazel-out/
+bazel-bin/
+bazel-genfiles/
+bazel-testlogs/
 
 # User-specific Bazelrc
 .bazelrc.local
@@ -246,3 +246,6 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# macOS specific files
+.DS_Store
