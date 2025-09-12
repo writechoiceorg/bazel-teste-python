@@ -108,7 +108,7 @@ instance_types = ["m6id.xlarge"]
   # WORKFLOWS_TEMPLATE:
   hosts = ["gha"]
 
-# Github Actions runner groups
+  # Github Actions runner groups
   # WORKFLOWS_TEMPLATE: Once the Aspect Workflows GitHub actions land in your repository, run the following command
   # using the GitHub CLI to determine the workflow ID for the `gha_workflow_ids` fields below:
   # gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/<org>/<repo>/actions/workflows
@@ -117,7 +117,7 @@ instance_types = ["m6id.xlarge"]
     # The `default` runner group is used for general bazel tasks such as build & test.
     default = {
       agent_idle_timeout_min    = 120
-      gh_repo                   = "mtgr18977/bazel-teste-python" # `org/repo` of the GitHub repository under test
+      gh_repo                   = "writechoiceorg/bazel-teste-python" # `org/repo` of the GitHub repository under test
       gha_workflow_ids          = [] # WORKFLOWS_TEMPLATE: to reduce GitHub API call frequency and prevent rate limiting, add the workflow ID of the Aspect Workflows main GitHub Action
       max_runners               = 50
       min_runners               = 0
@@ -131,7 +131,7 @@ instance_types = ["m6id.xlarge"]
     # meant for running bazel tasks.
     small = {
       agent_idle_timeout_min    = 720
-      gh_repo                   = "mtgr18977/bazel-teste-python" # `org/repo` of the GitHub repository under test
+      gh_repo                   = "writechoiceorg/bazel-teste-python" # `org/repo` of the GitHub repository under test
       gha_workflow_ids          = [] # WORKFLOWS_TEMPLATE: to reduce GitHub API call frequency and prevent rate limiting, add the workflow ID of the Aspect Workflows main GitHub Action
       max_runners               = 4
       min_runners               = 0
@@ -145,7 +145,7 @@ instance_types = ["m6id.xlarge"]
     # during bootstrap in order to speed up their first jobs.
     warming = {
       agent_idle_timeout_min = 1
-      gh_repo                = "mtgr18977/bazel-teste-python" # `org/repo` of the GitHub repository under test
+      gh_repo                = "writechoiceorg/bazel-teste-python" # `org/repo` of the GitHub repository under test
       gha_workflow_ids       = [] # WORKFLOWS_TEMPLATE: to reduce GitHub API call frequency and prevent rate limiting, add the workflow ID of the Aspect Workflows warming GitHub Action
       max_runners            = 1
       min_runners            = 0
