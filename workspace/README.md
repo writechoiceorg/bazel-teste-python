@@ -12,7 +12,7 @@ This is a simple Python project that uses Bazel as a build system.
 - `BUILD`: The Bazel build file for the `hello_world` package.
 - `MODULE.bazel`: The Bazel module file.
 
-## How to use
+## How to use this
 
 ### Build
 
