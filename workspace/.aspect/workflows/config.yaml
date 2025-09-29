@@ -1,11 +1,4 @@
----
-tasks:
-    - format:
-    - buildifier:
-    - gazelle:
-    - configure:
-    - test:
-          coverage: true
-          upload_test_logs: executed
-    - delivery:
-          auto_deliver: true
+jobs:
+    aspect-workflows:
+        name: Aspect Workflows
+        uses: writechoiceorg/workflows-action/.github/workflows/.aspect-workflows-reusable.yaml@5.14.16
