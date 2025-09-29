@@ -1,0 +1,43 @@
+name: Aspect Workflows CI (Build and Test)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  aspect-workflows-ci:
+    name: Build and Test
+    
+    # ----------------
+    # Configuração do Runner
+    # ----------------
+    # Direciona o job para o seu runner auto-hospedado no AWS.
+    runs-on: [self-hosted, aspect-workflows, aspect-default]
+    
+    steps:
+      # 1. Configura o ambiente Workflows (binários necessários no PATH).
+      - name: Configure Workflows Environment
+        run: /etc/aspect/workflows/bin/configure_workflows_env
+        
+      # 2. Checkout do Código.
+      - uses: actions/checkout@v4
+
+      # 3. Verifica a saúde do Agent.
+      - name: Agent Health Check
+        run: /etc/aspect/workflows/bin/agent_health_check
+        
+      # 4. Aciona a execução do Aspect Workflows (que executa o Bazel).
+      - name: Run Aspect Workflows CI
+        # Use a versão mais recente da Action.
+        uses: aspect-build/workflows-action@5.14.16 
+        with:
+          task: ci 
+        env:
+          # É altamente recomendado passar um GITHUB_TOKEN para funcionalidades
+          # como Branch Freshness e APIs de metadados do GitHub.
+          # Este é o token de contexto do GHA, que é diferente do token de escala no AWS Secrets Manager.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

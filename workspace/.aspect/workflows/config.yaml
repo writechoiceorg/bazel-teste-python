@@ -1,4 +1,23 @@
-jobs:
-    aspect-workflows:
-        name: Aspect Workflows
-        uses: writechoiceorg/workflows-action/.github/workflows/.aspect-workflows-reusable.yaml@5.14.16
+# Este arquivo define as tarefas (tasks) a serem executadas.
+
+# Define que todas as tarefas (build, test) devem processar
+# todos os alvos Bazel no seu workspace.
+targets:
+  - //...
+
+# Define as tarefas que serão executadas quando a 'workflows-action' for chamada.
+tasks:
+  - build:
+      name: Bazel Build
+      # Configurações para acelerar o build
+      bazel:
+        flags:
+          - --jobs=HOST_CPUS
+  
+  - test:
+      name: Bazel Test
+      # Configurações para testes
+      bazel:
+        flags:
+          - --test_output=errors
+          - --jobs=HOST_CPUS
