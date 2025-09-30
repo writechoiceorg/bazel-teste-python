@@ -31,8 +31,8 @@ jobs:
         uses: aspect-build/workflows-action@5.14.16 
         with:
           task: ci # Executa as tarefas 'build' e 'test' definidas em .aspect/workflows/config.yaml
-          # CRITICAL FIX: Informa à Action que a raiz do seu Bazel Workspace
-          # para execução dos comandos é a subpasta 'workspace'.
+          # CORREÇÃO CRÍTICA: Informa à Action que a raiz do Bazel Workspace é a subpasta 'workspace'.
+          workspace: 'workspace' 
         env:
           # O GITHUB_TOKEN é usado pela Action para interação com a API do GitHub.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
