@@ -1,24 +1,20 @@
+# .github/workflows/main.yml
 name: CI
 on:
   pull_request:
     branches:
-      - "*" # Executa em qualquer Pull Request
+      - "*"
   push:
     branches:
-      - "main" # Executa quando há push para a branch main
+      - "main"
 
 concurrency:
-  # Garante que apenas uma execução por PR/branch esteja ativa por vez.
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  aspect-workflows:
-    name: Aspect Workflows
-    # Chama o workflow reutilizável que contém a lógica de Build e Teste.
+  # This job simply calls the reusable workflow.
+  call-aspect-workflows: # Renamed job for clarity
+    name: Run Aspect Workflows
+    # Uses the file path for the reusable workflow.
     uses: ./.github/workflows/.aspect_workflows_reusable.yml
-    
-    # CORREÇÃO APLICADA AQUI: Usa a fila 'aspect-default'
-    # que corresponde ao grupo 'default' no Terraform.
-    with:
-        queue: aspect-default

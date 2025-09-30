@@ -1,21 +1,30 @@
+# .github/workflows/.aspect_workflows_reusable.yml
+name: Aspect Workflows - Reusable CI Logic
 on:
-  workflow_call:
-    inputs:
-      queue:
-        required: true
-        type: string
+  # Reusable workflows don't need the trigger definitions (on: ...), 
+  # as they are triggered by the caller (main.yml).
 
 jobs:
-  build_and_test:
-    name: Build and Test
-    runs-on: [self-hosted, ${{ inputs.queue }}]
+  aspect-workflows:
+    name: Aspect Build and Test
+
+    runs-on: [self-hosted, aspect-workflows, aspect-default]
+
+    env:
+      ASPECT_WORKFLOWS_BIN_DIR: /etc/aspect/workflows/bin
+
     steps:
       - name: Workflows environment
-        run: /etc/aspect/workflows/bin/configure_workflows_env
+        # Runs the configuration script installed on the Aspect Workflows runner
+        run: ${ASPECT_WORKFLOWS_BIN_DIR}/configure_workflows_env
+        
       - uses: actions/checkout@v4
+        
       - name: Agent health check
-        run: /etc/aspect/workflows/bin/agent_health_check
-      - name: Build and Test
-        uses: aspect-build/workflows-action@5.14.16
+        run: ${ASPECT_WORKFLOWS_BIN_DIR}/agent_health_check
+
+      - name: Run Bazel Build and Test
+        # Uses the Aspect Workflows GitHub Action to execute the build/test logic
+        uses: aspect-build/workflows-action@v5 # Replace 'v5' with the actual version
         with:
-          task: build_and_test
+          task: ci # Assuming the default 'ci' task (build and test)
