@@ -12,7 +12,7 @@ jobs:
   aspect-workflows-ci:
     name: Build and Test
     
-    # Usa os runners auto-hospedados com as credenciais que você configurou no AWS Secrets Manager.
+    # Usa os runners auto-hospedados
     runs-on: [self-hosted, aspect-workflows, aspect-default]
     
     steps:
@@ -28,13 +28,11 @@ jobs:
         run: /etc/aspect/workflows/bin/agent_health_check
         
       - name: Run Aspect Workflows CI
-        # Versão da Action do Aspect.
         uses: aspect-build/workflows-action@5.14.16 
         with:
           task: ci # Executa as tarefas 'build' e 'test' definidas em .aspect/workflows/config.yaml
           # CRITICAL FIX: Informa à Action que a raiz do seu Bazel Workspace
           # para execução dos comandos é a subpasta 'workspace'.
-          workspace: 'workspace' 
         env:
           # O GITHUB_TOKEN é usado pela Action para interação com a API do GitHub.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
