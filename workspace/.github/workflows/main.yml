@@ -1,20 +1,33 @@
 # .github/workflows/main.yml
-name: CI
+name: Aspect Workflows CI (Build and Test)
+
 on:
-  pull_request:
-    branches:
-      - "*"
   push:
     branches:
-      - "main"
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
 
 jobs:
-  # This job simply calls the reusable workflow.
-  call-aspect-workflows: # Renamed job for clarity
-    name: Run Aspect Workflows
-    # Uses the file path for the reusable workflow.
-    uses: ./.github/workflows/.aspect_workflows_reusable.yml
+  aspect-workflows-ci:
+    name: Build and Test
+    
+    runs-on: [self-hosted, aspect-workflows, aspect-default]
+    
+    steps:
+      - name: Configure Workflows Environment
+        run: /etc/aspect/workflows/bin/configure_workflows_env
+        
+      - uses: actions/checkout@v4
+
+      - name: Agent Health Check
+        run: /etc/aspect/workflows/bin/agent_health_check
+        
+      - name: Run Aspect Workflows CI
+        uses: aspect-build/workflows-action@5.14.16 
+        with:
+          task: ci
+          workspace: 'workspace' 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
