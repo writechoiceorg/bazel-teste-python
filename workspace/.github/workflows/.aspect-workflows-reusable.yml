@@ -1,8 +1,8 @@
 # .github/workflows/.aspect_workflows_reusable.yml
 name: Aspect Workflows - Reusable CI Logic
 on:
-  # Reusable workflows don't need the trigger definitions (on: ...), 
-  # as they are triggered by the caller (main.yml).
+  workflow_call:
+    # This allows the workflow to be called from other workflows (reusable workflow)
 
 jobs:
   aspect-workflows:
