@@ -18,8 +18,7 @@ jobs:
     # Chama o workflow reutilizável que contém a lógica de Build e Teste.
     uses: ./.github/workflows/.aspect_workflows_reusable.yml
     
-    # ATENÇÃO: Esta é a correção crítica. 
-    # 'aspect-default' corresponde à 'queue' do grupo 'default' no seu Terraform, 
-    # que é o grupo designado para tarefas de build e teste (Bazel).
+    # CORREÇÃO: Usa a fila 'aspect-default' que corresponde ao grupo de runners 
+    # M6ID.XLARGE configurado no seu Terraform para Build e Teste.
     with:
         queue: aspect-default
