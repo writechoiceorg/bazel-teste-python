@@ -12,7 +12,6 @@ jobs:
   aspect-workflows-ci:
     name: Build and Test
     runs-on: [self-hosted, aspect-workflows, aspect-default]
-
     steps:
       - name: Configure Workflows Environment
         run: /etc/aspect/workflows/bin/configure_workflows_env
@@ -20,16 +19,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Agent Health Check
-        # **Mude para rodar dentro da pasta do Bazel workspace**
-        run: |
-          cd workspace
-          /etc/aspect/workflows/bin/agent_health_check
+        run: /etc/aspect/workflows/bin/agent_health_check
 
       - name: Run Aspect Workflows CI
         uses: aspect-build/workflows-action@5.14.16
         with:
           task: ci
-          # Aponta para a subpasta 'workspace' como raiz Bazel
-          workspace: 'workspace'
+          workspace: '.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
