@@ -26,13 +26,10 @@ jobs:
       - name: Agent Health Check
         # Verifica se o agente está saudável.
         run: /etc/aspect/workflows/bin/agent_health_check
-        
       - name: Run Aspect Workflows CI
         uses: aspect-build/workflows-action@5.14.16 
         with:
-          task: ci # Executa as tarefas 'build' e 'test' definidas em .aspect/workflows/config.yaml
-          # CORREÇÃO CRÍTICA: Informa à Action que a raiz do Bazel Workspace é a subpasta 'workspace'.
+          task: ci
           workspace: 'workspace' 
         env:
-          # O GITHUB_TOKEN é usado pela Action para interação com a API do GitHub.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
