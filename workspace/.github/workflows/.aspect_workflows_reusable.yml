@@ -1,0 +1,21 @@
+on:
+  workflow_call:
+    inputs:
+      queue:
+        required: true
+        type: string
+
+jobs:
+  build_and_test:
+    name: Build and Test
+    runs-on: [self-hosted, ${{ inputs.queue }}]
+    steps:
+      - name: Workflows environment
+        run: /etc/aspect/workflows/bin/configure_workflows_env
+      - uses: actions/checkout@v4
+      - name: Agent health check
+        run: /etc/aspect/workflows/bin/agent_health_check
+      - name: Build and Test
+        uses: aspect-build/workflows-action@5.14.16
+        with:
+          task: build_and_test
