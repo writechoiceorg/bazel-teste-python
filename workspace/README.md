@@ -14,7 +14,7 @@ This is a simple Python project that uses Bazel as a build system.
 
 ## How to use this
 
-### Build
+### Build the projet
 
 To build the project, run the following command:
 
