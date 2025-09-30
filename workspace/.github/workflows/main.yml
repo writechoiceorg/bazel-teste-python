@@ -18,7 +18,7 @@ jobs:
     # Chama o workflow reutilizável que contém a lógica de Build e Teste.
     uses: ./.github/workflows/.aspect_workflows_reusable.yml
     
-    # CORREÇÃO: Usa a fila 'aspect-default' que corresponde ao grupo de runners 
-    # M6ID.XLARGE configurado no seu Terraform para Build e Teste.
+    # CORREÇÃO APLICADA AQUI: Usa a fila 'aspect-default'
+    # que corresponde ao grupo 'default' no Terraform.
     with:
         queue: aspect-default
