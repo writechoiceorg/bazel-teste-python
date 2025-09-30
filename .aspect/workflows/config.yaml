@@ -1,0 +1,19 @@
+workspaces:
+  - '.'
+
+tasks:
+  - ci:
+      - build
+      - test
+
+  - build:
+      bazel:
+        targets:
+          - "//..."
+
+  - test:
+      bazel:
+        flags:
+          - "--test_output=errors"
+        targets:
+          - "//..."
