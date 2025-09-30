@@ -17,17 +17,24 @@ jobs:
     
     steps:
       - name: Configure Workflows Environment
+        # Configura o ambiente no runner self-hosted do Aspect.
         run: /etc/aspect/workflows/bin/configure_workflows_env
         
       - uses: actions/checkout@v4
+        # Faz o checkout do código na raiz do runner.
 
       - name: Agent Health Check
+        # Verifica se o agente está saudável.
         run: /etc/aspect/workflows/bin/agent_health_check
         
       - name: Run Aspect Workflows CI
         # Versão da Action do Aspect.
         uses: aspect-build/workflows-action@5.14.16 
         with:
-          task: ci # Executa as tarefas 'build' e 'test' do seu .aspect/workflows/config.yaml
+          task: ci # Executa as tarefas 'build' e 'test' definidas em .aspect/workflows/config.yaml
+          # CRITICAL FIX: Informa à Action que a raiz do seu Bazel Workspace
+          # para execução dos comandos é a subpasta 'workspace'.
+          workspace: 'workspace' 
         env:
+          # O GITHUB_TOKEN é usado pela Action para interação com a API do GitHub.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
