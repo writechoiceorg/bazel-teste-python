@@ -1,19 +1,13 @@
-workspaces:
-  - '.'
-
 tasks:
-  - ci:
-      - build
-      - test
-
   - build:
-      bazel:
-        targets:
-          - "//..."
-
-  - test:
+      name: Bazel Build
       bazel:
         flags:
-          - "--test_output=errors"
-        targets:
-          - "//..."
+          - --jobs=HOST_CPUS
+  
+  - test:
+      name: Bazel Test
+      bazel:
+        flags:
+          - --test_output=errors
+          - --jobs=HOST_CPUS
