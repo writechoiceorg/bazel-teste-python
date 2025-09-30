@@ -1,4 +1,0 @@
-# Allow the Aspect Workflows configuration file to be checked out,
-# even if the parent 'workspace' folder is ignored.
-!workspace/.aspect/workflows/
-!workspace/.aspect/workflows/config.yml
