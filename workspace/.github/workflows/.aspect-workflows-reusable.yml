@@ -8,7 +8,7 @@ on:
 jobs:
   build_and_test:
     name: Build and Test
-    runs-on: self-hosted-${{ inputs.queue }}
+    runs-on: [self-hosted, ${{ inputs.queue }}]
     steps:
       - name: Workflows environment
         run: /etc/aspect/workflows/bin/configure_workflows_env
